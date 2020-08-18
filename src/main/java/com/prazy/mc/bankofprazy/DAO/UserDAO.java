@@ -1,14 +1,20 @@
 package com.prazy.mc.bankofprazy.DAO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.prazy.mc.bankofprazy.configs.DynamoDBConfig;
 import com.prazy.mc.bankofprazy.models.UserDTO;
 
 @Repository
-public class UserRegistrationDAO {
+public class UserDAO {
 	
 	@Autowired
 	DynamoDBConfig dynamoDBConfig;
@@ -16,6 +22,8 @@ public class UserRegistrationDAO {
 	@Autowired
 	DynamoDBMapper dynamoDBMapper;
 	
+	@Autowired
+	DynamoDB dynamoDB;
 	
 	public void registerUser(UserDTO userDTO) {
 		
@@ -23,6 +31,15 @@ public class UserRegistrationDAO {
 		
 		System.out.println("dynamoDBConfig : "+dynamoDBConfig);
 		
+	}
+	
+	public Item getUser(String mobileNumber){
+		
+		Table table = dynamoDB.getTable("user");
+		
+		Item item = table.getItem(new GetItemSpec().withPrimaryKey("mobileNumber",mobileNumber));
+		
+		return item;
 	}
 	
 

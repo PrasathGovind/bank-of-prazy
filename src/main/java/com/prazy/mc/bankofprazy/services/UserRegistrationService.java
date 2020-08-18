@@ -3,7 +3,7 @@ package com.prazy.mc.bankofprazy.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.prazy.mc.bankofprazy.DAO.UserRegistrationDAO;
+import com.prazy.mc.bankofprazy.DAO.UserDAO;
 import com.prazy.mc.bankofprazy.beans.User;
 import com.prazy.mc.bankofprazy.models.UserDTO;
 
@@ -11,7 +11,7 @@ import com.prazy.mc.bankofprazy.models.UserDTO;
 public class UserRegistrationService {
 	
 	@Autowired
-	UserRegistrationDAO userRegistrationDAO;
+	UserDAO userRegistrationDAO;
 		
 	public void registerUser(User user) {
 		

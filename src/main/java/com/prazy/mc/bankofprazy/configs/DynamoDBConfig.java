@@ -16,9 +16,9 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 @Configuration
 public class DynamoDBConfig {
 	
-	private String aKey = "";
+	private String aKey = "AKIAZH6W6RYTT4NEOEYN";
 	
-	private String sKey = "";
+	private String sKey = "Eyl6z26nNCoRbZ6m1FEaD7En8d2tnYzdslw76n98";
 	
 	@Value("${amazon.region}")
 	private String awsRegion;
