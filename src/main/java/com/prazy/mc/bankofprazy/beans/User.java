@@ -15,7 +15,7 @@ public class User implements Serializable {
 	private String emailId;
 
 	public String getUserId() {
-		return userId;
+		return userId;									
 	}
 
 	public void setUserId(String userId) {

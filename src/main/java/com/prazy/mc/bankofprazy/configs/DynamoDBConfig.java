@@ -14,11 +14,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 @Configuration
 public class DynamoDBConfig {
 	
-	@Value("${amazon.access.key}")
-	private String awsAccessKey;
+	private String aKey = "AKIAZH6W6RYTT4NEOEYN";
 	
-	@Value("${amazon.access.secret-key}")
-	private String awsSecretKey;
+	private String sKey = "Eyl6z26nNCoRbZ6m1FEaD7En8d2tnYzdslw76n98";
 	
 	@Value("${amazon.region}")
 	private String awsRegion;
@@ -35,7 +33,7 @@ public class DynamoDBConfig {
 		
 		AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
 			.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(awsDynamoDbEndpoint, awsRegion))
-			.withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsAccessKey, awsSecretKey)))
+			.withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(aKey, sKey)))
 			.build();
 		
 		return amazonDynamoDB;
@@ -43,7 +41,7 @@ public class DynamoDBConfig {
 
 	@Override
 	public String toString() {
-		return "DynamoDBConfig [awsAccessKey=" + awsAccessKey + ", awsSecretKey=" + awsSecretKey + ", awsRegion="
+		return "DynamoDBConfig [aKey=" + aKey + ", sKey=" + sKey + ", awsRegion="
 				+ awsRegion + ", awsDynamoDbEndpoint=" + awsDynamoDbEndpoint + "]";
 	}
 	
