@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.services.dynamodbv2.document.Item;
 import com.prazy.mc.bankofprazy.DAO.LoanDAO;
 import com.prazy.mc.bankofprazy.DAO.UserDAO;
 import com.prazy.mc.bankofprazy.beans.ApplyLoanResponse;
@@ -15,7 +14,7 @@ import com.prazy.mc.bankofprazy.beans.Loan;
 import com.prazy.mc.bankofprazy.beans.LoanRequest;
 import com.prazy.mc.bankofprazy.beans.User;
 import com.prazy.mc.bankofprazy.models.LoanRequestDTO;
-import com.prazy.mc.bankofprazy.models.UserDTO;
+import com.prazy.mc.bankofprazy.utils.EmailUtils;
 
 @Service
 public class LoanApplicationService {
@@ -25,6 +24,9 @@ public class LoanApplicationService {
 	
 	@Autowired
 	LoanDAO loanDAO;
+	
+	@Autowired
+	EmailUtils emailUtils;
 	
 	public ApplyLoanResponse applyForALoan(LoanRequest loanRequest) {
 		
@@ -39,10 +41,14 @@ public class LoanApplicationService {
 		loanDTO.setLoanAmount(loanRequest.getLoanAmount());
 		loanDTO.setLoanType(loanRequest.getLoanType());
 		loanDTO.setTermInYears(loanRequest.getTermInYears());
+		
 		loanDAO.saveLoanRequest(loanDTO);
+		
+		emailUtils.sendLoanAppliedEmail(loanRequest.getEmailId());
 		
 		applyLoanResponse.setUser(new User());
 		applyLoanResponse.getUser().setMobileNumber(loanRequest.getMobileNumber());
+		
 		return applyLoanResponse;
 	}
 	

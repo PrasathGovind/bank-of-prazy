@@ -12,19 +12,21 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.prazy.mc.bankofprazy.utils.StringUtils;
 
 @Configuration
 public class DynamoDBConfig {
 	
-	private String aKey = "";
+	private String aKey = StringUtils.getDynamoDBaKey();
 	
-	private String sKey = "";
+	private String sKey = StringUtils.getDynamoDBsKey();
 	
 	@Value("${amazon.region}")
 	private String awsRegion;
 	
 	@Value("${amazon.end-point.url}")
 	private String awsDynamoDbEndpoint;
+	
 	
 	@Bean
 	public DynamoDB dynamoDB() {

@@ -8,6 +8,8 @@ public class LoanRequest implements Serializable {
 
 	private String mobileNumber;
 	
+	private String emailId;
+	
 	private String loanType;
 	
 	private String loanAmount;
@@ -46,12 +48,18 @@ public class LoanRequest implements Serializable {
 		this.termInYears = termInYears;
 	}
 
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
 	@Override
 	public String toString() {
-		return "LoanRequest [mobileNumber=" + mobileNumber + ", loanType=" + loanType + ", loanAmount=" + loanAmount
-				+ ", termInYears=" + termInYears + "]";
+		return "LoanRequest [mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", loanType=" + loanType
+				+ ", loanAmount=" + loanAmount + ", termInYears=" + termInYears + "]";
 	}
-	
-	
 
 }

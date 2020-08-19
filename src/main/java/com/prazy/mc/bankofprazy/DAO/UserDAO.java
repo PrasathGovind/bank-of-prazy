@@ -1,7 +1,5 @@
 package com.prazy.mc.bankofprazy.DAO;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
