@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.prazy.mc.bankofprazy.advisors.APIException;
 import com.prazy.mc.bankofprazy.beans.ApplyLoanResponse;
 import com.prazy.mc.bankofprazy.beans.Loan;
 import com.prazy.mc.bankofprazy.beans.LoanRequest;
@@ -25,7 +26,7 @@ public class LoanApplication {
 	@Autowired
 	private Gson gson;
 	
-	@GetMapping(path="/getLoans", produces="application/json; charset=UTF-8")
+	@GetMapping(path="/getLoanDetails", produces="application/json; charset=UTF-8")
 	public ResponseEntity<String> getLoanOptionsAndDetails(){
 		
 		List<Loan> loanOptionsAndDetails = loanApplicationService.getLoanOptionsAndDetails();
@@ -38,7 +39,7 @@ public class LoanApplication {
 	}
 	
 	@PostMapping(path="/applyLoan", consumes="application/json; charset=UTF-8", produces="application/json; charset=UTF-8")
-	public ResponseEntity<String> applyLoan(@RequestBody LoanRequest loanRequest){
+	public ResponseEntity<String> applyLoan(@RequestBody LoanRequest loanRequest) throws APIException {
 		
 		ApplyLoanResponse response = loanApplicationService.applyForALoan(loanRequest);
 		
