@@ -4,20 +4,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.prazy.mc.bankofprazy.DAO.LoanDAO;
 import com.prazy.mc.bankofprazy.DAO.UserDAO;
+import com.prazy.mc.bankofprazy.advisors.APIException;
 import com.prazy.mc.bankofprazy.beans.ApplyLoanResponse;
 import com.prazy.mc.bankofprazy.beans.Loan;
 import com.prazy.mc.bankofprazy.beans.LoanRequest;
 import com.prazy.mc.bankofprazy.beans.User;
+import com.prazy.mc.bankofprazy.constants.ErrorConstants;
 import com.prazy.mc.bankofprazy.models.LoanRequestDTO;
 import com.prazy.mc.bankofprazy.utils.EmailUtils;
 
 @Service
 public class LoanApplicationService {
+	
+    Logger logger = LoggerFactory.getLogger(LoanApplicationService.class);
 	
 	@Autowired
 	UserDAO userDAO;
@@ -29,6 +35,19 @@ public class LoanApplicationService {
 	EmailUtils emailUtils;
 	
 	public ApplyLoanResponse applyForALoan(LoanRequest loanRequest) {
+		
+		if(loanRequest==null) {
+			throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Details are missing in Loan Application!");
+		}
+		
+		if(loanRequest!=null && (loanRequest.getMobileNumber()==null || loanRequest.getMobileNumber().isEmpty()
+				|| loanRequest.getEmailId()==null || loanRequest.getEmailId().isEmpty())) {
+			throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Mandatory details are missing in Loan Application!");
+		}
+		
+		if(loanRequest!=null && (loanRequest.getLoanType()==null || loanRequest.getLoanType().isEmpty())) {
+			throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Loan Type must be mentioned!");
+		}
 		
 		ApplyLoanResponse applyLoanResponse = new ApplyLoanResponse();
 		applyLoanResponse.setMessage("Loan Applied Successfully! You will receive an email with further details!");
@@ -74,6 +93,8 @@ public class LoanApplicationService {
 		List<Loan> loanOptionsAndDetails = new ArrayList<Loan>(0);
 		loanOptionsAndDetails.add(homeLoan);
 		loanOptionsAndDetails.add(vehicleLoan);
+		
+		logger.info("loanOptionsAndDetails : "+loanOptionsAndDetails);
 
 		return loanOptionsAndDetails;
 	}

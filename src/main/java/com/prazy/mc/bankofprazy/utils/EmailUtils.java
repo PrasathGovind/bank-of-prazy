@@ -10,10 +10,16 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+
 
 @Component
 public class EmailUtils {
+	
+     Logger logger = LoggerFactory.getLogger(EmailUtils.class);
 	
 	 String FROM = "govindarajuprasath@gmail.com";
      String FROMNAME = "Prasath, Loans Department";
@@ -53,16 +59,15 @@ public class EmailUtils {
 	        transport.sendMessage(msg, msg.getAllRecipients());
 		
 		} catch (UnsupportedEncodingException e) {
-			System.out.println("UnsupportedEncodingException while sending email! "+e.getMessage());
+			logger.debug("UnsupportedEncodingException while sending email! "+e.getMessage());
 		} catch (MessagingException e) {
-			System.out.println("MessagingException while sending email! "+e.getMessage());
+			logger.debug("MessagingException while sending email! "+e.getMessage());
 		} finally {
 				try {
 					if(transport!=null)
 						transport.close();
 				} catch (MessagingException e) {
-					System.out.println("MessagingException while closing Transport! "+e.getMessage());
-
+					logger.debug("MessagingException while closing Transport! "+e.getMessage());
 				}
 		}
         

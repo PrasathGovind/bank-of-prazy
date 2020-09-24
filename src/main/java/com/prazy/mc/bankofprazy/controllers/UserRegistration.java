@@ -17,7 +17,7 @@ public class UserRegistration {
 	@Autowired
 	UserRegistrationService userRegistrationService;
 	
-	@PostMapping(path="/register", consumes="application/json; charset=UTF-8", produces="application/json; charset=UTF-8")
+	@PostMapping(path="/user/registration", consumes="application/json; charset=UTF-8", produces="application/json; charset=UTF-8")
 	public ResponseEntity<String> registerUser(@RequestBody User user) throws APIException {
 		
 		userRegistrationService.registerUser(user);

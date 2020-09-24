@@ -26,7 +26,7 @@ public class LoanApplication {
 	@Autowired
 	private Gson gson;
 	
-	@GetMapping(path="/getLoanDetails", produces="application/json; charset=UTF-8")
+	@GetMapping(path="/loan/details", produces="application/json; charset=UTF-8")
 	public ResponseEntity<String> getLoanOptionsAndDetails(){
 		
 		List<Loan> loanOptionsAndDetails = loanApplicationService.getLoanOptionsAndDetails();
@@ -38,7 +38,7 @@ public class LoanApplication {
 		return response;		
 	}
 	
-	@PostMapping(path="/applyLoan", consumes="application/json; charset=UTF-8", produces="application/json; charset=UTF-8")
+	@PostMapping(path="/loan/procurement", consumes="application/json; charset=UTF-8", produces="application/json; charset=UTF-8")
 	public ResponseEntity<String> applyLoan(@RequestBody LoanRequest loanRequest) throws APIException {
 		
 		ApplyLoanResponse response = loanApplicationService.applyForALoan(loanRequest);

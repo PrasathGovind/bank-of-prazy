@@ -3,7 +3,6 @@ package com.prazy.mc.bankofprazy.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.services.dynamodbv2.document.Item;
 import com.prazy.mc.bankofprazy.DAO.UserDAO;
 import com.prazy.mc.bankofprazy.advisors.APIException;
 import com.prazy.mc.bankofprazy.beans.User;
